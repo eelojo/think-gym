@@ -15,7 +15,6 @@
 
 <body>
 
-
   <header class="hero" data-aos="fade-down" data-aos-duration="1800" data-aos-easing="ease-in-out">
     <img src="logo.png" alt="Think-Gym Logo" class="logo" />
     <h1 data-aos="zoom-in" data-aos-delay="1000" data-aos-duration="1600" data-aos-easing="ease-in-out">Smarter Fitness. Personalized for You.</h1>
@@ -45,112 +44,115 @@
   <section class="cta-bottom" data-aos="zoom-in">
     <h2 data-aos="zoom-in-up" data-aos-delay="300" data-aos-duration="1500" data-aos-easing="ease-in-out">Ready to train smarter?</h2>
     <p data-aos="zoom-in-down" data-aos-delay="800" data-aos-duration="1800" data-aos-easing="ease-in-out">Let Think-Gym handle the planning. Focus on the gains.</p>
-    <a href="#" class="cta" data-aos="zoom out" data-aos-delay="1000" data-aos-duration="2000">Try it Free</a>
+    <a href="#" class="cta" data-aos="zoom-out" data-aos-delay="1000" data-aos-duration="2000">Try it Free</a>
   </section>
+
   <section class="workout-ai" data-aos="fade-up" data-aos-duration="1500">
-  <h2>Get Your AI-Powered Workout Plan</h2>
-  <form id="goalForm">
-    <label for="goal">Your Goal</label>
-    <select id="goal" required>
-      <option value="">-- Select --</option>
-      <option value="Build Muscle">Build Muscle</option>
-      <option value="Lose Fat">Lose Fat</option>
-      <option value="Stay Fit">Stay Fit</option>
-    </select>
+    <h2>Get Your AI-Powered Workout Plan</h2>
+    <form id="goalForm">
+      <label for="goal">Your Goal</label>
+      <select id="goal" required>
+        <option value="">-- Select --</option>
+        <option value="Build Muscle">Build Muscle</option>
+        <option value="Lose Fat">Lose Fat</option>
+        <option value="Stay Fit">Stay Fit</option>
+      </select>
 
-    <label for="experience">Experience Level</label>
-    <select id="experience" required>
-      <option value="">-- Select --</option>
-      <option value="Beginner">Beginner</option>
-      <option value="Intermediate">Intermediate</option>
-      <option value="Advanced">Advanced</option>
-    </select>
+      <label for="experience">Experience Level</label>
+      <select id="experience" required>
+        <option value="">-- Select --</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
 
-    <label for="days">Days per Week</label>
-    <select id="days" required>
-      <option value="">-- Select --</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-    </select>
+      <label for="days">Days per Week</label>
+      <select id="days" required>
+        <option value="">-- Select --</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+      </select>
 
-    <button type="submit" class="cta">Generate Plan</button>
-  </form>
+      <button type="submit" class="cta">Generate Plan</button>
+    </form>
 
-  <div id="output" class="plan result"></div>
-</section>
+    <div id="output" class="plan-result"></div>
+  </section>
 
   <footer>
     <p>&copy; 2025 Think-Gym. All rights reserved.</p>
   </footer>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-  AOS.init();
-</script
-<script>
-  function generateWorkoutPlan(goal, experience, daysPerWeek) {
-    const workouts = [];
 
-    if (goal === "Build Muscle") {
-      if (daysPerWeek >= 5) {
-        workouts.push("Push (Chest, Shoulders, Triceps)");
-        workouts.push("Pull (Back, Biceps)");
-        workouts.push("Legs (Quads, Glutes, Calves)");
-        workouts.push("Upper Body (Heavy)");
-        workouts.push("Lower Body (Light + Mobility)");
-      } else if (daysPerWeek === 4) {
-        workouts.push("Upper Body (Push + Pull)");
-        workouts.push("Lower Body (Squats, Deadlifts)");
-        workouts.push("Upper Body (Volume)");
-        workouts.push("Lower Body (Hamstring Focus)");
-      } else {
-        workouts.push("Full Body Strength");
-        workouts.push("Full Body (Higher Volume)");
-        workouts.push("Core + Cardio");
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+  <script>
+    function generateWorkoutPlan(goal, experience, daysPerWeek) {
+      const workouts = [];
+
+      if (goal === "Build Muscle") {
+        if (daysPerWeek >= 5) {
+          workouts.push("Push (Chest, Shoulders, Triceps)");
+          workouts.push("Pull (Back, Biceps)");
+          workouts.push("Legs (Quads, Glutes, Calves)");
+          workouts.push("Upper Body (Heavy)");
+          workouts.push("Lower Body (Light + Mobility)");
+        } else if (daysPerWeek === 4) {
+          workouts.push("Upper Body (Push + Pull)");
+          workouts.push("Lower Body (Squats, Deadlifts)");
+          workouts.push("Upper Body (Volume)");
+          workouts.push("Lower Body (Hamstring Focus)");
+        } else {
+          workouts.push("Full Body Strength");
+          workouts.push("Full Body (Higher Volume)");
+          workouts.push("Core + Cardio");
+        }
       }
-    }
 
-    if (goal === "Lose Fat") {
-      if (experience === "Beginner") {
-        workouts.push("Full Body + Cardio");
-        workouts.push("Active Recovery (Walk or Yoga)");
-        workouts.push("Full Body (Resistance Bands)");
-      } else {
-        workouts.push("HIIT + Core");
-        workouts.push("Upper Body Strength");
-        workouts.push("Lower Body Strength");
-        workouts.push("Circuit Training");
+      if (goal === "Lose Fat") {
+        if (experience === "Beginner") {
+          workouts.push("Full Body + Cardio");
+          workouts.push("Active Recovery (Walk or Yoga)");
+          workouts.push("Full Body (Resistance Bands)");
+        } else {
+          workouts.push("HIIT + Core");
+          workouts.push("Upper Body Strength");
+          workouts.push("Lower Body Strength");
+          workouts.push("Circuit Training");
+        }
       }
+
+      if (goal === "Stay Fit") {
+        workouts.push("Strength + Mobility");
+        workouts.push("Cardio Intervals");
+        workouts.push("Bodyweight Circuit");
+        workouts.push("Stretch / Recovery");
+      }
+
+      return workouts.slice(0, daysPerWeek);
     }
 
-    if (goal === "Stay Fit") {
-      workouts.push("Strength + Mobility");
-      workouts.push("Cardio Intervals");
-      workouts.push("Bodyweight Circuit");
-      workouts.push("Stretch / Recovery");
-    }
+    document.getElementById("goalForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const goal = document.getElementById("goal").value;
+      const experience = document.getElementById("experience").value;
+      const days = parseInt(document.getElementById("days").value);
 
-    return workouts.slice(0, daysPerWeek); // Limit to number of days selected
-  }
+      const plan = generateWorkoutPlan(goal, experience, days);
 
-  document.getElementById("goalForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const goal = document.getElementById("goal").value;
-    const experience = document.getElementById("experience").value;
-    const days = parseInt(document.getElementById("days").value);
+      let outputHTML = `<h3>Your ${days}-Day Plan:</h3><ul>`;
+      plan.forEach((day, index) => {
+        outputHTML += `<li><strong>Day ${index + 1}:</strong> ${day}</li>`;
+      });
+      outputHTML += `</ul>`;
 
-    const plan = generateWorkoutPlan(goal, experience, days);
-
-    let outputHTML = `<h3>Your ${days}-Day Plan:</h3><ul>`;
-    plan.forEach((day, index) => {
-      outputHTML += `<li><strong>Day ${index + 1}:</strong> ${day}</li>`;
+      document.getElementById("output").innerHTML = outputHTML;
     });
-    outputHTML += `</ul>`;
-
-    document.getElementById("output").innerHTML = outputHTML;
-  });
-</script>
+  </script>
 
 </body>
 </html>
