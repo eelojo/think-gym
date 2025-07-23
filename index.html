@@ -78,7 +78,7 @@
     <button type="submit" class="cta">Generate Plan</button>
   </form>
 
-  <div id="output" style="margin-top: 20px; font-weight: bold;"></div>
+  <div id="output" class="plan result"></div>
 </section>
 
   <footer>
@@ -87,34 +87,51 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init();
-</script>
+</script
 <script>
   function generateWorkoutPlan(goal, experience, daysPerWeek) {
-    const plan = [];
+    const workouts = [];
 
     if (goal === "Build Muscle") {
       if (daysPerWeek >= 5) {
-        plan.push("Push / Pull / Legs / Upper / Lower");
+        workouts.push("Push (Chest, Shoulders, Triceps)");
+        workouts.push("Pull (Back, Biceps)");
+        workouts.push("Legs (Quads, Glutes, Calves)");
+        workouts.push("Upper Body (Heavy)");
+        workouts.push("Lower Body (Light + Mobility)");
       } else if (daysPerWeek === 4) {
-        plan.push("Upper / Lower Split");
+        workouts.push("Upper Body (Push + Pull)");
+        workouts.push("Lower Body (Squats, Deadlifts)");
+        workouts.push("Upper Body (Volume)");
+        workouts.push("Lower Body (Hamstring Focus)");
       } else {
-        plan.push("Full Body Workouts (3x/week)");
+        workouts.push("Full Body Strength");
+        workouts.push("Full Body (Higher Volume)");
+        workouts.push("Core + Cardio");
       }
     }
 
     if (goal === "Lose Fat") {
       if (experience === "Beginner") {
-        plan.push("Full Body Workouts + Light Cardio");
+        workouts.push("Full Body + Cardio");
+        workouts.push("Active Recovery (Walk or Yoga)");
+        workouts.push("Full Body (Resistance Bands)");
       } else {
-        plan.push("HIIT + Weight Training Combo");
+        workouts.push("HIIT + Core");
+        workouts.push("Upper Body Strength");
+        workouts.push("Lower Body Strength");
+        workouts.push("Circuit Training");
       }
     }
 
     if (goal === "Stay Fit") {
-      plan.push("Mix of Strength, Cardio, and Mobility");
+      workouts.push("Strength + Mobility");
+      workouts.push("Cardio Intervals");
+      workouts.push("Bodyweight Circuit");
+      workouts.push("Stretch / Recovery");
     }
 
-    return plan;
+    return workouts.slice(0, daysPerWeek); // Limit to number of days selected
   }
 
   document.getElementById("goalForm").addEventListener("submit", function (e) {
@@ -124,7 +141,14 @@
     const days = parseInt(document.getElementById("days").value);
 
     const plan = generateWorkoutPlan(goal, experience, days);
-    document.getElementById("output").innerText = `Your Plan: ${plan.join(", ")}`;
+
+    let outputHTML = `<h3>Your ${days}-Day Plan:</h3><ul>`;
+    plan.forEach((day, index) => {
+      outputHTML += `<li><strong>Day ${index + 1}:</strong> ${day}</li>`;
+    });
+    outputHTML += `</ul>`;
+
+    document.getElementById("output").innerHTML = outputHTML;
   });
 </script>
 

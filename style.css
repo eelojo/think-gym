@@ -73,3 +73,26 @@ footer {
 .workout-ai button:hover {
   background: #0056c7;
 }
+.plan-result {
+  margin-top: 2rem;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.plan-result h3 {
+  text-align: center;
+  color: #0070f3;
+}
+.plan-result ul {
+  list-style: none;
+  padding: 0;
+}
+.plan-result li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+}
