@@ -47,6 +47,39 @@
     <p data-aos="zoom-in-down" data-aos-delay="800" data-aos-duration="1800" data-aos-easing="ease-in-out">Let Think-Gym handle the planning. Focus on the gains.</p>
     <a href="#" class="cta" data-aos="zoom out" data-aos-delay="1000" data-aos-duration="2000">Try it Free</a>
   </section>
+  <section class="workout-ai" data-aos="fade-up" data-aos-duration="1500">
+  <h2>Get Your AI-Powered Workout Plan</h2>
+  <form id="goalForm">
+    <label for="goal">Your Goal</label>
+    <select id="goal" required>
+      <option value="">-- Select --</option>
+      <option value="Build Muscle">Build Muscle</option>
+      <option value="Lose Fat">Lose Fat</option>
+      <option value="Stay Fit">Stay Fit</option>
+    </select>
+
+    <label for="experience">Experience Level</label>
+    <select id="experience" required>
+      <option value="">-- Select --</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+
+    <label for="days">Days per Week</label>
+    <select id="days" required>
+      <option value="">-- Select --</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+
+    <button type="submit" class="cta">Generate Plan</button>
+  </form>
+
+  <div id="output" style="margin-top: 20px; font-weight: bold;"></div>
+</section>
 
   <footer>
     <p>&copy; 2025 Think-Gym. All rights reserved.</p>
@@ -54,6 +87,45 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init();
+</script>
+<script>
+  function generateWorkoutPlan(goal, experience, daysPerWeek) {
+    const plan = [];
+
+    if (goal === "Build Muscle") {
+      if (daysPerWeek >= 5) {
+        plan.push("Push / Pull / Legs / Upper / Lower");
+      } else if (daysPerWeek === 4) {
+        plan.push("Upper / Lower Split");
+      } else {
+        plan.push("Full Body Workouts (3x/week)");
+      }
+    }
+
+    if (goal === "Lose Fat") {
+      if (experience === "Beginner") {
+        plan.push("Full Body Workouts + Light Cardio");
+      } else {
+        plan.push("HIIT + Weight Training Combo");
+      }
+    }
+
+    if (goal === "Stay Fit") {
+      plan.push("Mix of Strength, Cardio, and Mobility");
+    }
+
+    return plan;
+  }
+
+  document.getElementById("goalForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const goal = document.getElementById("goal").value;
+    const experience = document.getElementById("experience").value;
+    const days = parseInt(document.getElementById("days").value);
+
+    const plan = generateWorkoutPlan(goal, experience, days);
+    document.getElementById("output").innerText = `Your Plan: ${plan.join(", ")}`;
+  });
 </script>
 
 </body>
