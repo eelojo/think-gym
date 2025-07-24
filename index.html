@@ -92,66 +92,114 @@
 
   <script>
     function generateWorkoutPlan(goal, experience, daysPerWeek) {
-      const workouts = [];
+       const exercises = {
+    push: [
+      { name: "Bench Press", sets: 4, reps: 8 },
+      { name: "Shoulder Press", sets: 3, reps: 10 },
+      { name: "Triceps Dips", sets: 3, reps: 12 },
+    ],
+    pull: [
+      { name: "Pull-ups", sets: 4, reps: 8 },
+      { name: "Barbell Rows", sets: 3, reps: 10 },
+      { name: "Bicep Curls", sets: 3, reps: 12 },
+    ],
+    legs: [
+      { name: "Squats", sets: 4, reps: 8 },
+      { name: "Lunges", sets: 3, reps: 10 },
+      { name: "Calf Raises", sets: 3, reps: 15 },
+    ],
+    fullBody: [
+      { name: "Deadlifts", sets: 4, reps: 6 },
+      { name: "Push-ups", sets: 3, reps: 12 },
+      { name: "Planks", sets: 3, duration: "30s" },
+    ],
+    cardio: [
+      { name: "Running", duration: "20 minutes" },
+      { name: "Jump Rope", duration: "15 minutes" },
+    ],
+  };
 
-      if (goal === "Build Muscle") {
-        if (daysPerWeek >= 5) {
-          workouts.push("Push (Chest, Shoulders, Triceps)");
-          workouts.push("Pull (Back, Biceps)");
-          workouts.push("Legs (Quads, Glutes, Calves)");
-          workouts.push("Upper Body (Heavy)");
-          workouts.push("Lower Body (Light + Mobility)");
-        } else if (daysPerWeek === 4) {
-          workouts.push("Upper Body (Push + Pull)");
-          workouts.push("Lower Body (Squats, Deadlifts)");
-          workouts.push("Upper Body (Volume)");
-          workouts.push("Lower Body (Hamstring Focus)");
-        } else {
-          workouts.push("Full Body Strength");
-          workouts.push("Full Body (Higher Volume)");
-          workouts.push("Core + Cardio");
-        }
-      }
+  let plan = [];
 
-      if (goal === "Lose Fat") {
-        if (experience === "Beginner") {
-          workouts.push("Full Body + Cardio");
-          workouts.push("Active Recovery (Walk or Yoga)");
-          workouts.push("Full Body (Resistance Bands)");
-        } else {
-          workouts.push("HIIT + Core");
-          workouts.push("Upper Body Strength");
-          workouts.push("Lower Body Strength");
-          workouts.push("Circuit Training");
-        }
-      }
-
-      if (goal === "Stay Fit") {
-        workouts.push("Strength + Mobility");
-        workouts.push("Cardio Intervals");
-        workouts.push("Bodyweight Circuit");
-        workouts.push("Stretch / Recovery");
-      }
-
-      return workouts.slice(0, daysPerWeek);
+  if (goal === "Build Muscle") {
+    if (daysPerWeek >= 5) {
+      plan = [
+        { day: "Day 1: Push", exercises: exercises.push },
+        { day: "Day 2: Pull", exercises: exercises.pull },
+        { day: "Day 3: Legs", exercises: exercises.legs },
+        { day: "Day 4: Upper Body (Heavy)", exercises: exercises.push.concat(exercises.pull) },
+        { day: "Day 5: Lower Body (Light + Mobility)", exercises: exercises.legs.concat([{ name: "Yoga / Stretching", duration: "30 minutes" }]) },
+      ];
+    } else if (daysPerWeek === 4) {
+      plan = [
+        { day: "Day 1: Upper Body (Push + Pull)", exercises: exercises.push.concat(exercises.pull) },
+        { day: "Day 2: Lower Body (Squats, Deadlifts)", exercises: exercises.legs.concat([{ name: "Deadlifts", sets: 4, reps: 6 }]) },
+        { day: "Day 3: Upper Body (Volume)", exercises: exercises.push.concat(exercises.pull) },
+        { day: "Day 4: Lower Body (Hamstring Focus)", exercises: [ { name: "Romanian Deadlift", sets: 4, reps: 8 }, { name: "Leg Curls", sets: 3, reps: 12 } ] },
+      ];
+    } else {
+      plan = [
+        { day: "Day 1: Full Body Strength", exercises: exercises.fullBody },
+        { day: "Day 2: Full Body (Higher Volume)", exercises: exercises.fullBody.concat([{ name: "Jumping Jacks", sets: 3, reps: 25 }]) },
+        { day: "Day 3: Core + Cardio", exercises: [{ name: "Planks", sets: 4, duration: "40s" }].concat(exercises.cardio) },
+      ];
     }
+  } else if (goal === "Lose Fat") {
+    if (experience === "Beginner") {
+      plan = [
+        { day: "Day 1: Full Body + Cardio", exercises: exercises.fullBody.concat(exercises.cardio) },
+        { day: "Day 2: Active Recovery (Walk or Yoga)", exercises: [{ name: "Walking", duration: "30 minutes" }, { name: "Yoga", duration: "30 minutes" }] },
+        { day: "Day 3: Full Body (Resistance Bands)", exercises: [{ name: "Resistance Band Rows", sets: 3, reps: 12 }, { name: "Resistance Band Squats", sets: 3, reps: 12 }] },
+      ];
+    } else {
+      plan = [
+        { day: "Day 1: HIIT + Core", exercises: [{ name: "HIIT Circuit", duration: "20 minutes" }, { name: "Planks", sets: 3, duration: "45s" }] },
+        { day: "Day 2: Upper Body Strength", exercises: exercises.push },
+        { day: "Day 3: Lower Body Strength", exercises: exercises.legs },
+        { day: "Day 4: Circuit Training", exercises: [{ name: "Circuit Training", duration: "30 minutes" }] },
+      ];
+    }
+  } else if (goal === "Stay Fit") {
+    plan = [
+      { day: "Day 1: Strength + Mobility", exercises: exercises.fullBody.concat([{ name: "Yoga", duration: "30 minutes" }]) },
+      { day: "Day 2: Cardio Intervals", exercises: exercises.cardio },
+      { day: "Day 3: Bodyweight Circuit", exercises: [{ name: "Push-ups", sets: 3, reps: 15 }, { name: "Squats", sets: 3, reps: 20 }, { name: "Jumping Jacks", sets: 3, reps: 30 }] },
+      { day: "Day 4: Stretch / Recovery", exercises: [{ name: "Stretching", duration: "30 minutes" }] },
+    ];
+  }
 
-    document.getElementById("goalForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const goal = document.getElementById("goal").value;
-      const experience = document.getElementById("experience").value;
-      const days = parseInt(document.getElementById("days").value);
+  // Limit to requested number of days
+  return plan.slice(0, daysPerWeek);
+}
 
-      const plan = generateWorkoutPlan(goal, experience, days);
+  document.getElementById("goalForm").addEventListener("submit", function (e) {
+  e.preventDefault();
 
-      let outputHTML = `<h3>Your ${days}-Day Plan:</h3><ul>`;
-      plan.forEach((day, index) => {
-        outputHTML += `<li><strong>Day ${index + 1}:</strong> ${day}</li>`;
-      });
-      outputHTML += `</ul>`;
+  const goal = document.getElementById("goal").value;
+  const experience = document.getElementById("experience").value;
+  const days = parseInt(document.getElementById("days").value);
 
-      document.getElementById("output").innerHTML = outputHTML;
+  const plan = generateWorkoutPlan(goal, experience, days);
+
+  let outputHTML = `<h3>Your ${days}-Day Plan:</h3>`;
+
+  plan.forEach(dayPlan => {
+    outputHTML += `<h4>${dayPlan.day}</h4><ul>`;
+    dayPlan.exercises.forEach(exercise => {
+      if (exercise.sets && exercise.reps) {
+        outputHTML += `<li>${exercise.name} – ${exercise.sets} sets of ${exercise.reps}</li>`;
+      } else if (exercise.duration) {
+        outputHTML += `<li>${exercise.name} – ${exercise.duration}</li>`;
+      } else {
+        outputHTML += `<li>${exercise.name}</li>`;
+      }
     });
+    outputHTML += `</ul>`;
+  });
+
+  document.getElementById("output").innerHTML = outputHTML;
+});
+
   </script>
 
 </body>

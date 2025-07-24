@@ -96,3 +96,14 @@ footer {
   padding: 0.5rem 0;
   border-bottom: 1px solid #eee;
 }
+.plan-result h4 {
+  margin-top: 1.5rem;
+  color: #0070f3;
+}
+.plan-result ul {
+  list-style: disc inside;
+  margin-bottom: 1rem;
+}
+.plan-result li {
+  margin-bottom: 0.3rem;
+}
