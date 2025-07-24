@@ -107,3 +107,11 @@ footer {
 .plan-result li {
   margin-bottom: 0.3rem;
 }
+#output input[type="checkbox"] {
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+#output label {
+  cursor: pointer;
+}

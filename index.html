@@ -183,16 +183,22 @@
 
   let outputHTML = `<h3>Your ${days}-Day Plan:</h3>`;
 
-  plan.forEach(dayPlan => {
+  plan.forEach((dayPlan, dayIndex) => {
     outputHTML += `<h4>${dayPlan.day}</h4><ul>`;
-    dayPlan.exercises.forEach(exercise => {
-      if (exercise.sets && exercise.reps) {
-        outputHTML += `<li>${exercise.name} – ${exercise.sets} sets of ${exercise.reps}</li>`;
-      } else if (exercise.duration) {
-        outputHTML += `<li>${exercise.name} – ${exercise.duration}</li>`;
-      } else {
-        outputHTML += `<li>${exercise.name}</li>`;
-      }
+    dayPlan.exercises.forEach((exercise, i) => {
+      const label = exercise.sets && exercise.reps
+        ? `${exercise.name} – ${exercise.sets} sets of ${exercise.reps}`
+        : exercise.duration
+        ? `${exercise.name} – ${exercise.duration}`
+        : exercise.name;
+
+      const checkboxId = `day${dayIndex}-exercise${i}`;
+      outputHTML += `
+        <li>
+          <input type="checkbox" id="${checkboxId}">
+          <label for="${checkboxId}">${label}</label>
+        </li>
+      `;
     });
     outputHTML += `</ul>`;
   });
