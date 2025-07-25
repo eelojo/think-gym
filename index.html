@@ -187,21 +187,23 @@
 
   let outputHTML = `<h3>Your ${days}-Day Plan:</h3><div class="week-grid">`;
 
-  plan.forEach((dayPlan, dayIndex) => {
+  for (let i = 0; i < 7; i++) {
+  if (i < plan.length) {
+    const dayPlan = plan[i];
     outputHTML += `
       <div class="day-card">
-        <h4>${getDayName(dayIndex)}</h4>
+        <h4>${getDayName(i)}</h4>
         <ul>
     `;
 
-    dayPlan.exercises.forEach((exercise, i) => {
+    dayPlan.exercises.forEach((exercise, j) => {
       const label = exercise.sets && exercise.reps
         ? `${exercise.name} – ${exercise.sets}x${exercise.reps} <span class="tag">${exercise.muscleGroup || ""}</span>`
         : exercise.duration
         ? `${exercise.name} – ${exercise.duration} <span class="tag">${exercise.muscleGroup || ""}</span>`
         : `${exercise.name} <span class="tag">${exercise.muscleGroup || ""}</span>`;
 
-      const checkboxId = `day${dayIndex}-exercise${i}`;
+      const checkboxId = `day${i}-exercise${j}`;
       outputHTML += `
         <li class="exercise-item">
           <input type="checkbox" id="${checkboxId}">
@@ -216,7 +218,16 @@
         </ul>
       </div>
     `;
-  });
+  } else {
+    // Auto-filled rest day
+    outputHTML += `
+      <div class="day-card rest-day">
+        <h4>${getDayName(i)}</h4>
+        <p class="rest-label">Rest Day 🧘‍♂️</p>
+      </div>
+    `;
+  }
+}
 
   outputHTML += `</div>`; // Close grid
   document.getElementById("output").innerHTML = outputHTML;
