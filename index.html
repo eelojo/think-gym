@@ -91,6 +91,10 @@
   </script>
 
   <script>
+    function getDayName(index) {
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  return days[index % 7]; // Repeat if more than 7 days
+}
     function generateWorkoutPlan(goal, experience, daysPerWeek) {
        const exercises = {
     push: [
@@ -186,7 +190,7 @@
   plan.forEach((dayPlan, dayIndex) => {
     outputHTML += `
       <div class="day-card">
-        <h4>Day ${dayIndex + 1}</h4>
+        <h4>${getDayName(dayIndex)}</h4>
         <ul>
     `;
 
