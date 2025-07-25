@@ -181,10 +181,15 @@
 
   const plan = generateWorkoutPlan(goal, experience, days);
 
-  let outputHTML = `<h3>Your ${days}-Day Plan:</h3>`;
+  let outputHTML = `<h3>Your ${days}-Day Plan:</h3><div class="week-grid">`;
 
   plan.forEach((dayPlan, dayIndex) => {
-    outputHTML += `<h4>${dayPlan.day}</h4><ul>`;
+    outputHTML += `
+      <div class="day-card">
+        <h4>Day ${dayIndex + 1}</h4>
+        <ul>
+    `;
+
     dayPlan.exercises.forEach((exercise, i) => {
       const label = exercise.sets && exercise.reps
         ? `${exercise.name} – ${exercise.sets}x${exercise.reps} <span class="tag">${exercise.muscleGroup || ""}</span>`
@@ -194,17 +199,22 @@
 
       const checkboxId = `day${dayIndex}-exercise${i}`;
       outputHTML += `
-  <li class="exercise-item">
-    <input type="checkbox" id="${checkboxId}">
-    <label for="${checkboxId}">
-      <span class="exercise-text">${label}</span>
-    </label>
-  </li>
-`;
+        <li class="exercise-item">
+          <input type="checkbox" id="${checkboxId}">
+          <label for="${checkboxId}">
+            <span class="exercise-text">${label}</span>
+          </label>
+        </li>
+      `;
     });
-    outputHTML += `</ul>`;
+
+    outputHTML += `
+        </ul>
+      </div>
+    `;
   });
 
+  outputHTML += `</div>`; // Close grid
   document.getElementById("output").innerHTML = outputHTML;
 });
 
