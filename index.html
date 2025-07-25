@@ -194,11 +194,13 @@
 
       const checkboxId = `day${dayIndex}-exercise${i}`;
       outputHTML += `
-        <li>
-          <input type="checkbox" id="${checkboxId}">
-          <label for="${checkboxId}">${label}</label>
-        </li>
-      `;
+  <li class="exercise-item">
+    <input type="checkbox" id="${checkboxId}">
+    <label for="${checkboxId}">
+      <span class="exercise-text">${label}</span>
+    </label>
+  </li>
+`;
     });
     outputHTML += `</ul>`;
   });
