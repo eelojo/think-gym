@@ -94,28 +94,28 @@
     function generateWorkoutPlan(goal, experience, daysPerWeek) {
        const exercises = {
     push: [
-      { name: "Bench Press", sets: 4, reps: 8 },
-      { name: "Shoulder Press", sets: 3, reps: 10 },
-      { name: "Triceps Dips", sets: 3, reps: 12 },
+      { name: "Bench Press", sets: 4, reps: 8, muscleGroup: "Chest"},
+      { name: "Shoulder Press", sets: 3, reps: 10, muscleGroup: "Shoudlers" },
+      { name: "Triceps Dips", sets: 3, reps: 12, muscleGroup: "Triceps"},
     ],
     pull: [
-      { name: "Pull-ups", sets: 4, reps: 8 },
-      { name: "Barbell Rows", sets: 3, reps: 10 },
-      { name: "Bicep Curls", sets: 3, reps: 12 },
+      { name: "Pull-ups", sets: 4, reps: 8, muscleGroup: "Back" },
+      { name: "Barbell Rows", sets: 3, reps: 10, muscleGroup: "Back" },
+      { name: "Bicep Curls", sets: 3, reps: 12, muscleGroup: "Biceps" },
     ],
     legs: [
-      { name: "Squats", sets: 4, reps: 8 },
-      { name: "Lunges", sets: 3, reps: 10 },
-      { name: "Calf Raises", sets: 3, reps: 15 },
+      { name: "Squats", sets: 4, reps: 8, muscleGroup: "Legs" },
+      { name: "Lunges", sets: 3, reps: 10, muscleGroup: "Glutes" },
+      { name: "Calf Raises", sets: 3, reps: 15, muscleGroup: "Calves" },
     ],
     fullBody: [
-      { name: "Deadlifts", sets: 4, reps: 6 },
-      { name: "Push-ups", sets: 3, reps: 12 },
-      { name: "Planks", sets: 3, duration: "30s" },
+      { name: "Deadlifts", sets: 4, reps: 6, muscleGroup: "Back" },
+      { name: "Push-ups", sets: 3, reps: 12, muscleGroup: "Chest" },
+      { name: "Planks", sets: 3, duration: "30s", muscleGroup: "Core" },
     ],
     cardio: [
-      { name: "Running", duration: "20 minutes" },
-      { name: "Jump Rope", duration: "15 minutes" },
+      { name: "Running", duration: "20 minutes", muscleGroup: "Cardio" },
+      { name: "Jump Rope", duration: "15 minutes", muscleGroup: "Cardio" },
     ],
   };
 
@@ -187,10 +187,10 @@
     outputHTML += `<h4>${dayPlan.day}</h4><ul>`;
     dayPlan.exercises.forEach((exercise, i) => {
       const label = exercise.sets && exercise.reps
-        ? `${exercise.name} – ${exercise.sets} sets of ${exercise.reps}`
+        ? `${exercise.name} – ${exercise.sets}x${exercise.reps} <span class="tag">${exercise.muscleGroup || ""}</span>`
         : exercise.duration
-        ? `${exercise.name} – ${exercise.duration}`
-        : exercise.name;
+        ? `${exercise.name} – ${exercise.duration} <span class="tag">${exercise.muscleGroup || ""}</span>`
+        : `${exercise.name} <span class="tag">${exercise.muscleGroup || ""}</span>`;
 
       const checkboxId = `day${dayIndex}-exercise${i}`;
       outputHTML += `
