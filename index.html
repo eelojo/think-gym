@@ -87,6 +87,8 @@
     <label><input type="checkbox" name="rest" value="6"> Sun</label>
   </div>
 </fieldset>
+<label for="planName">Name Your Plan (optional)</label>
+<input type="text" id="planName" placeholder="e.g. Summer Shred" />
 
       <button type="submit" class="cta">Generate Plan</button>
     </form>
@@ -201,6 +203,7 @@
 
   document.getElementById("goalForm").addEventListener("submit", function (e) {
     e.preventDefault();
+    const planName = document.getElementById("planName").value;
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
     const days = parseInt(document.getElementById("days").value);
@@ -209,7 +212,7 @@
 
     const workoutPlan = generateWorkoutPlan(goal, experience, days);
 
-    let outputHTML = `<h3>Your ${days}-Day Plan:</h3><div class="week-grid">`;
+  let outputHTML = `<h3>${planName ? planName : `Your ${days}-Day Plan`}:</h3><div class="week-grid">`;
 
     for (let i = 0, workoutIndex = 0; i < 7; i++) {
       if (restDays.includes(i)) {
