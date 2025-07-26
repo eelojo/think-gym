@@ -90,6 +90,9 @@
 <label for="planName">Name Your Plan (optional)</label>
 <input type="text" id="planName" placeholder="e.g. Summer Shred" />
 
+<label for="email">Your Email</label>
+<input type="email" id="email" required placeholder="Enter your email" />
+
       <button type="submit" class="cta">Generate Plan</button>
     </form>
 
@@ -204,6 +207,7 @@
   document.getElementById("goalForm").addEventListener("submit", function (e) {
     e.preventDefault();
     const planName = document.getElementById("planName").value;
+    const email = document.getElementById("email").value;
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
     const days = parseInt(document.getElementById("days").value);
@@ -259,6 +263,22 @@
 
     outputHTML += `</div>`;
     document.getElementById("output").innerHTML = outputHTML;
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(planName)}&body=${encodeURIComponent(emailBody)}`;
+window.open(mailtoLink, "_blank");
+    let emailBody = `Your Plan: ${planName}\n\n`;
+plan.forEach((day, index) => {
+  emailBody += `Day ${index + 1}: ${day.day}\n`;
+  day.exercises.forEach((exercise) => {
+    if (exercise.sets && exercise.reps) {
+      emailBody += `- ${exercise.name} (${exercise.sets}x${exercise.reps})\n`;
+    } else if (exercise.duration) {
+      emailBody += `- ${exercise.name} (${exercise.duration})\n`;
+    } else {
+      emailBody += `- ${exercise.name}\n`;
+    }
+  });
+  emailBody += `\n`;
+});
   });
 </script>
 
