@@ -130,223 +130,178 @@
 </script>
 
 <script>
-  function getDayName(index) {
-    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-    return days[index % 7];
-  }
+function getDayName(index) {
+  const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  return days[index % 7];
+}
 
-  function generateWorkoutPlan(goal, experience, daysPerWeek) {
-    const exercises = {
-      push: [
-        { name: "Bench Press", sets: 4, reps: 8, muscleGroup: "Chest" },
-        { name: "Shoulder Press", sets: 3, reps: 10, muscleGroup: "Shoulders" },
-        { name: "Triceps Dips", sets: 3, reps: 12, muscleGroup: "Triceps" },
-      ],
-      pull: [
-        { name: "Pull-ups", sets: 4, reps: 8, muscleGroup: "Back" },
-        { name: "Barbell Rows", sets: 3, reps: 10, muscleGroup: "Back" },
-        { name: "Bicep Curls", sets: 3, reps: 12, muscleGroup: "Biceps" },
-      ],
-      legs: [
-        { name: "Squats", sets: 4, reps: 8, muscleGroup: "Legs" },
-        { name: "Lunges", sets: 3, reps: 10, muscleGroup: "Glutes" },
-        { name: "Calf Raises", sets: 3, reps: 15, muscleGroup: "Calves" },
-      ],
-      fullBody: [
-        { name: "Deadlifts", sets: 4, reps: 6, muscleGroup: "Back" },
-        { name: "Push-ups", sets: 3, reps: 12, muscleGroup: "Chest" },
-        { name: "Planks", sets: 3, duration: "30s", muscleGroup: "Core" },
-      ],
-      cardio: [
-        { name: "Running", duration: "20 minutes", muscleGroup: "Cardio" },
-        { name: "Jump Rope", duration: "15 minutes", muscleGroup: "Cardio" },
-      ],
-    };
+function generateWorkoutPlan(goal, experience, daysPerWeek) {
+  const exercises = {
+    push: [
+      { name: "Bench Press", sets: 4, reps: 8, muscleGroup: "Chest" },
+      { name: "Shoulder Press", sets: 3, reps: 10, muscleGroup: "Shoulders" },
+      { name: "Triceps Dips", sets: 3, reps: 12, muscleGroup: "Triceps" },
+    ],
+    pull: [
+      { name: "Pull-ups", sets: 4, reps: 8, muscleGroup: "Back" },
+      { name: "Barbell Rows", sets: 3, reps: 10, muscleGroup: "Back" },
+      { name: "Bicep Curls", sets: 3, reps: 12, muscleGroup: "Biceps" },
+    ],
+    legs: [
+      { name: "Squats", sets: 4, reps: 8, muscleGroup: "Legs" },
+      { name: "Lunges", sets: 3, reps: 10, muscleGroup: "Glutes" },
+      { name: "Calf Raises", sets: 3, reps: 15, muscleGroup: "Calves" },
+    ],
+    fullBody: [
+      { name: "Deadlifts", sets: 4, reps: 6, muscleGroup: "Back" },
+      { name: "Push-ups", sets: 3, reps: 12, muscleGroup: "Chest" },
+      { name: "Planks", sets: 3, duration: "30s", muscleGroup: "Core" },
+    ],
+    cardio: [
+      { name: "Running", duration: "20 minutes", muscleGroup: "Cardio" },
+      { name: "Jump Rope", duration: "15 minutes", muscleGroup: "Cardio" },
+    ],
+  };
 
-    let plan = [];
+  let plan = [];
 
-    if (goal === "Build Muscle") {
-      if (daysPerWeek >= 5) {
-        plan = [
-          { exercises: exercises.push },
-          { exercises: exercises.pull },
-          { exercises: exercises.legs },
-          { exercises: exercises.push.concat(exercises.pull) },
-          { exercises: exercises.legs.concat([{ name: "Yoga / Stretching", duration: "30 minutes" }]) },
-        ];
-      } else if (daysPerWeek === 4) {
-        plan = [
-          { exercises: exercises.push.concat(exercises.pull) },
-          { exercises: exercises.legs.concat([{ name: "Deadlifts", sets: 4, reps: 6 }]) },
-          { exercises: exercises.push.concat(exercises.pull) },
-          { exercises: [
-            { name: "Romanian Deadlift", sets: 4, reps: 8 },
-            { name: "Leg Curls", sets: 3, reps: 12 },
-          ]},
-        ];
-      } else {
-        plan = [
-          { exercises: exercises.fullBody },
-          { exercises: exercises.fullBody.concat([{ name: "Jumping Jacks", sets: 3, reps: 25 }]) },
-          { exercises: [{ name: "Planks", sets: 4, duration: "40s" }].concat(exercises.cardio) },
-        ];
-      }
-    } else if (goal === "Lose Fat") {
-      if (experience === "Beginner") {
-        plan = [
-          { exercises: exercises.fullBody.concat(exercises.cardio) },
-          { exercises: [{ name: "Walking", duration: "30 minutes" }, { name: "Yoga", duration: "30 minutes" }] },
-          { exercises: [
-            { name: "Resistance Band Rows", sets: 3, reps: 12 },
-            { name: "Resistance Band Squats", sets: 3, reps: 12 },
-          ] },
-        ];
-      } else {
-        plan = [
-          { exercises: [{ name: "HIIT Circuit", duration: "20 minutes" }, { name: "Planks", sets: 3, duration: "45s" }] },
-          { exercises: exercises.push },
-          { exercises: exercises.legs },
-          { exercises: [{ name: "Circuit Training", duration: "30 minutes" }] },
-        ];
-      }
-    } else if (goal === "Stay Fit") {
+  if (goal === "Build Muscle") {
+    if (daysPerWeek >= 5) {
       plan = [
-        { exercises: exercises.fullBody.concat([{ name: "Yoga", duration: "30 minutes" }]) },
-        { exercises: exercises.cardio },
+        { exercises: exercises.push },
+        { exercises: exercises.pull },
+        { exercises: exercises.legs },
+        { exercises: exercises.push.concat(exercises.pull) },
+        { exercises: exercises.legs.concat([{ name: "Yoga / Stretching", duration: "30 minutes" }]) },
+      ];
+    } else if (daysPerWeek === 4) {
+      plan = [
+        { exercises: exercises.push.concat(exercises.pull) },
+        { exercises: exercises.legs.concat([{ name: "Deadlifts", sets: 4, reps: 6 }]) },
+        { exercises: exercises.push.concat(exercises.pull) },
         { exercises: [
-          { name: "Push-ups", sets: 3, reps: 15 },
-          { name: "Squats", sets: 3, reps: 20 },
-          { name: "Jumping Jacks", sets: 3, reps: 30 },
-        ] },
-        { exercises: [{ name: "Stretching", duration: "30 minutes" }] },
+          { name: "Romanian Deadlift", sets: 4, reps: 8 },
+          { name: "Leg Curls", sets: 3, reps: 12 },
+        ]},
+      ];
+    } else {
+      plan = [
+        { exercises: exercises.fullBody },
+        { exercises: exercises.fullBody.concat([{ name: "Jumping Jacks", sets: 3, reps: 25 }]) },
+        { exercises: [{ name: "Planks", sets: 4, duration: "40s" }].concat(exercises.cardio) },
       ];
     }
-
-    return plan.slice(0, daysPerWeek);
+  } else if (goal === "Lose Fat") {
+    if (experience === "Beginner") {
+      plan = [
+        { exercises: exercises.fullBody.concat(exercises.cardio) },
+        { exercises: [{ name: "Walking", duration: "30 minutes" }, { name: "Yoga", duration: "30 minutes" }] },
+        { exercises: [
+          { name: "Resistance Band Rows", sets: 3, reps: 12 },
+          { name: "Resistance Band Squats", sets: 3, reps: 12 },
+        ] },
+      ];
+    } else {
+      plan = [
+        { exercises: [{ name: "HIIT Circuit", duration: "20 minutes" }, { name: "Planks", sets: 3, duration: "45s" }] },
+        { exercises: exercises.push },
+        { exercises: exercises.legs },
+        { exercises: [{ name: "Circuit Training", duration: "30 minutes" }] },
+      ];
+    }
+  } else if (goal === "Stay Fit") {
+    plan = [
+      { exercises: exercises.fullBody.concat([{ name: "Yoga", duration: "30 minutes" }]) },
+      { exercises: exercises.cardio },
+      { exercises: [
+        { name: "Push-ups", sets: 3, reps: 15 },
+        { name: "Squats", sets: 3, reps: 20 },
+        { name: "Jumping Jacks", sets: 3, reps: 30 },
+      ] },
+      { exercises: [{ name: "Stretching", duration: "30 minutes" }] },
+    ];
   }
 
-  document.getElementById("goalForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const planName = document.getElementById("planName").value;
-    const email = document.getElementById("email").value;
-    const goal = document.getElementById("goal").value;
-    const experience = document.getElementById("experience").value;
-    const days = parseInt(document.getElementById("days").value);
-    const restCheckboxes = document.querySelectorAll('input[name="rest"]:checked');
-    const restDays = Array.from(restCheckboxes).map(cb => parseInt(cb.value));
+  return plan.slice(0, daysPerWeek);
+}
 
-    const workoutPlan = generateWorkoutPlan(goal, experience, days);
+document.getElementById("goalForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const planName = document.getElementById("planName").value;
+  const email = document.getElementById("email").value;
+  const goal = document.getElementById("goal").value;
+  const experience = document.getElementById("experience").value;
+  const days = parseInt(document.getElementById("days").value);
+  const restCheckboxes = document.querySelectorAll('input[name="rest"]:checked');
+  const restDays = Array.from(restCheckboxes).map(cb => parseInt(cb.value));
+
+  const workoutPlan = generateWorkoutPlan(goal, experience, days);
 
   let outputHTML = `<h3>${planName ? planName : `Your ${days}-Day Plan`}:</h3><div class="week-grid">`;
 
-    for (let i = 0, workoutIndex = 0; i < 7; i++) {
-      if (restDays.includes(i)) {
+  for (let i = 0, workoutIndex = 0; i < 7; i++) {
+    if (restDays.includes(i)) {
+      outputHTML += `
+        <div class="day-card rest-day">
+          <h4>${getDayName(i)}</h4>
+          <p class="rest-label">Rest Day 🧘‍♂️</p>
+        </div>
+      `;
+    } else if (workoutIndex < workoutPlan.length) {
+      const exercises = workoutPlan[workoutIndex].exercises;
+      outputHTML += `
+        <div class="day-card">
+          <h4>${getDayName(i)}</h4>
+          <ul>
+      `;
+      exercises.forEach((ex, j) => {
+        const label = ex.sets && ex.reps
+          ? `${ex.name} – ${ex.sets}x${ex.reps} <span class="tag">${ex.muscleGroup || ""}</span>`
+          : ex.duration
+          ? `${ex.name} – ${ex.duration} <span class="tag">${ex.muscleGroup || ""}</span>`
+          : `${ex.name} <span class="tag">${ex.muscleGroup || ""}</span>`;
+        const checkboxId = `day${i}-exercise${j}`;
         outputHTML += `
-          <div class="day-card rest-day">
-            <h4>${getDayName(i)}</h4>
-            <p class="rest-label">Rest Day 🧘‍♂️</p>
-          </div>
+          <li class="exercise-item">
+            <input type="checkbox" id="${checkboxId}">
+            <label for="${checkboxId}">
+              <span class="exercise-text">${label}</span>
+            </label>
+          </li>
         `;
-      } else if (workoutIndex < workoutPlan.length) {
-        const exercises = workoutPlan[workoutIndex].exercises;
-        outputHTML += `
-          <div class="day-card">
-            <h4>${getDayName(i)}</h4>
-            <ul>
-        `;
-        exercises.forEach((ex, j) => {
-          const label = ex.sets && ex.reps
-            ? `${ex.name} – ${ex.sets}x${ex.reps} <span class="tag">${ex.muscleGroup || ""}</span>`
-            : ex.duration
-            ? `${ex.name} – ${ex.duration} <span class="tag">${ex.muscleGroup || ""}</span>`
-            : `${ex.name} <span class="tag">${ex.muscleGroup || ""}</span>`;
-          const checkboxId = `day${i}-exercise${j}`;
-          outputHTML += `
-            <li class="exercise-item">
-              <input type="checkbox" id="${checkboxId}">
-              <label for="${checkboxId}">
-                <span class="exercise-text">${label}</span>
-              </label>
-            </li>
-          `;
-        });
-        outputHTML += `</ul></div>`;
-        workoutIndex++;
-      } else {
-        outputHTML += `
-          <div class="day-card rest-day">
-            <h4>${getDayName(i)}</h4>
-            <p class="rest-label">Rest Day 🧘‍♂️</p>
-          </div>
-        `;
-      }
-    }
-
-    outputHTML += `</div>`;
-    document.getElementById("output").innerHTML = outputHTML;
-    workoutPlan.forEach((day, index) => {
-    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(planName)}&body=${encodeURIComponent(emailBody)}`;
-window.open(mailtoLink, "_blank");
-    let emailBody = `Your Plan: ${planName}\n\n`;
-  emailBody += `Day ${index + 1}: ${day.day}\n`;
-  day.exercises.forEach((exercise) => {
-    if (exercise.sets && exercise.reps) {
-      emailBody += `- ${exercise.name} (${exercise.sets}x${exercise.reps})\n`;
-    } else if (exercise.duration) {
-      emailBody += `- ${exercise.name} (${exercise.duration})\n`;
+      });
+      outputHTML += `</ul></div>`;
+      workoutIndex++;
     } else {
-      emailBody += `- ${exercise.name}\n`;
+      outputHTML += `
+        <div class="day-card rest-day">
+          <h4>${getDayName(i)}</h4>
+          <p class="rest-label">Rest Day 🧘‍♂️</p>
+        </div>
+      `;
     }
-  });
-  emailBody += `\n`;
-});
-  });
-</script>
-</script>
-<script>
-document.getElementById("signupForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("signupEmail").value;
-  const password = document.getElementById("signupPassword").value;
-
-  localStorage.setItem("userEmail", email);
-  localStorage.setItem("userPassword", password);
-
-  document.getElementById("authMessage").textContent = "Account created! You can now log in.";
-});
-
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const storedEmail = localStorage.getItem("userEmail");
-  const storedPassword = localStorage.getItem("userPassword");
-
-  if (email === storedEmail && password === storedPassword) {
-    document.getElementById("authMessage").textContent = "Login successful!";
-  } else {
-    document.getElementById("authMessage").textContent = "Incorrect credentials.";
   }
+
+  outputHTML += `</div>`;
+  document.getElementById("output").innerHTML = outputHTML;
+
+  // Email logic
+  let emailBody = `Your Plan: ${planName || `Your ${days}-Day Plan`}\n\n`;
+  workoutPlan.forEach((day, index) => {
+    emailBody += `Day ${index + 1}:\n`;
+    day.exercises.forEach((exercise) => {
+      if (exercise.sets && exercise.reps) {
+        emailBody += `- ${exercise.name} (${exercise.sets}x${exercise.reps})\n`;
+      } else if (exercise.duration) {
+        emailBody += `- ${exercise.name} (${exercise.duration})\n`;
+      } else {
+        emailBody += `- ${exercise.name}\n`;
+      }
+    });
+    emailBody += `\n`;
+  });
+
+  const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(planName || "Your AI Workout Plan")}&body=${encodeURIComponent(emailBody)}`;
+  window.open(mailtoLink, "_blank");
 });
 </script>
-</body>
-</html>
-
-document.getElementById("loginForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
-
-  const storedEmail = localStorage.getItem("userEmail");
-  const storedPassword = localStorage.getItem("userPassword");
-
-  if (email === storedEmail && password === storedPassword) {
-    document.getElementById("authMessage").textContent = "Login successful!";
-  } else {
-    document.getElementById("authMessage").textContent = "Incorrect credentials.";
-  }
-});
-
-</body>
-</html>
