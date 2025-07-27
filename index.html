@@ -98,6 +98,27 @@
 
     <div id="output" class="plan-result"></div>
   </section>
+  <section class="auth-section" data-aos="fade-up" data-aos-duration="1500">
+  <h2>Account</h2>
+
+  <div class="auth-container">
+    <form id="signupForm">
+      <h3>Sign Up</h3>
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Password" required />
+      <button type="submit" class="cta">Create Account</button>
+    </form>
+
+    <form id="loginForm">
+      <h3>Login</h3>
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="submit" class="cta">Login</button>
+    </form>
+  </div>
+
+  <p id="authMessage" class="message"></p>
+</section>
 
   <footer>
     <p>&copy; 2025 Think-Gym. All rights reserved.</p>
@@ -281,6 +302,31 @@ plan.forEach((day, index) => {
 });
   });
 </script>
+document.getElementById("signupForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  localStorage.setItem("userEmail", email);
+  localStorage.setItem("userPassword", password);
+
+  document.getElementById("authMessage").textContent = "Account created! You can now log in.";
+});
+
+document.getElementById("loginForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  const storedEmail = localStorage.getItem("userEmail");
+  const storedPassword = localStorage.getItem("userPassword");
+
+  if (email === storedEmail && password === storedPassword) {
+    document.getElementById("authMessage").textContent = "Login successful!";
+  } else {
+    document.getElementById("authMessage").textContent = "Incorrect credentials.";
+  }
+});
 
 </body>
 </html>
