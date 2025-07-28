@@ -91,7 +91,7 @@
 <input type="text" id="planName" placeholder="e.g. Summer Shred" />
 
 <label for="email">Your Email</label>
-<input type="email" id="email" required placeholder="Enter your email" />
+<input type="email" id="email" placeholder="Enter your email" />
 
       <button type="submit" class="cta">Generate Plan</button>
     </form>
@@ -227,8 +227,9 @@ function generateWorkoutPlan(goal, experience, daysPerWeek) {
 
 document.getElementById("goalForm").addEventListener("submit", function (e) {
   e.preventDefault();
-  const planName = document.getElementById("planName").value;
-  const email = document.getElementById("email").value;
+
+  const planName = document.getElementById("planName").value || "Your Workout Plan";
+  const email = document.getElementById("email").value.trim();
   const goal = document.getElementById("goal").value;
   const experience = document.getElementById("experience").value;
   const days = parseInt(document.getElementById("days").value);
@@ -237,7 +238,7 @@ document.getElementById("goalForm").addEventListener("submit", function (e) {
 
   const workoutPlan = generateWorkoutPlan(goal, experience, days);
 
-  let outputHTML = `<h3>${planName ? planName : `Your ${days}-Day Plan`}:</h3><div class="week-grid">`;
+  let outputHTML = `<h3>${planName}</h3><div class="week-grid">`;
 
   for (let i = 0, workoutIndex = 0; i < 7; i++) {
     if (restDays.includes(i)) {
@@ -245,15 +246,10 @@ document.getElementById("goalForm").addEventListener("submit", function (e) {
         <div class="day-card rest-day">
           <h4>${getDayName(i)}</h4>
           <p class="rest-label">Rest Day 🧘‍♂️</p>
-        </div>
-      `;
+        </div>`;
     } else if (workoutIndex < workoutPlan.length) {
       const exercises = workoutPlan[workoutIndex].exercises;
-      outputHTML += `
-        <div class="day-card">
-          <h4>${getDayName(i)}</h4>
-          <ul>
-      `;
+      outputHTML += `<div class="day-card"><h4>${getDayName(i)}</h4><ul>`;
       exercises.forEach((ex, j) => {
         const label = ex.sets && ex.reps
           ? `${ex.name} – ${ex.sets}x${ex.reps} <span class="tag">${ex.muscleGroup || ""}</span>`
@@ -267,8 +263,7 @@ document.getElementById("goalForm").addEventListener("submit", function (e) {
             <label for="${checkboxId}">
               <span class="exercise-text">${label}</span>
             </label>
-          </li>
-        `;
+          </li>`;
       });
       outputHTML += `</ul></div>`;
       workoutIndex++;
@@ -277,31 +272,41 @@ document.getElementById("goalForm").addEventListener("submit", function (e) {
         <div class="day-card rest-day">
           <h4>${getDayName(i)}</h4>
           <p class="rest-label">Rest Day 🧘‍♂️</p>
-        </div>
-      `;
+        </div>`;
     }
   }
 
   outputHTML += `</div>`;
   document.getElementById("output").innerHTML = outputHTML;
 
-  // Email logic
-  let emailBody = `Your Plan: ${planName || `Your ${days}-Day Plan`}\n\n`;
-  workoutPlan.forEach((day, index) => {
-    emailBody += `Day ${index + 1}:\n`;
-    day.exercises.forEach((exercise) => {
-      if (exercise.sets && exercise.reps) {
-        emailBody += `- ${exercise.name} (${exercise.sets}x${exercise.reps})\n`;
-      } else if (exercise.duration) {
-        emailBody += `- ${exercise.name} (${exercise.duration})\n`;
-      } else {
-        emailBody += `- ${exercise.name}\n`;
-      }
-    });
-    emailBody += `\n`;
-  });
+  // --- Email Logic (if email was provided) ---
+  if (email) {
+    let emailBody = `${planName}\nGoal: ${goal}\nExperience: ${experience}\n\n`;
 
-  const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(planName || "Your AI Workout Plan")}&body=${encodeURIComponent(emailBody)}`;
-  window.open(mailtoLink, "_blank");
+    for (let i = 0, workoutIndex = 0; i < 7; i++) {
+      emailBody += `Day ${i + 1} (${getDayName(i)}):\n`;
+      if (restDays.includes(i)) {
+        emailBody += `- Rest Day 🧘‍♂️\n\n`;
+      } else if (workoutIndex < workoutPlan.length) {
+        workoutPlan[workoutIndex].exercises.forEach((ex) => {
+          if (ex.sets && ex.reps) {
+            emailBody += `- ${ex.name} (${ex.sets}x${ex.reps}) [${ex.muscleGroup || ""}]\n`;
+          } else if (ex.duration) {
+            emailBody += `- ${ex.name} (${ex.duration}) [${ex.muscleGroup || ""}]\n`;
+          } else {
+            emailBody += `- ${ex.name} [${ex.muscleGroup || ""}]\n`;
+          }
+        });
+        emailBody += `\n`;
+        workoutIndex++;
+      } else {
+        emailBody += `- Rest Day 🧘‍♂️\n\n`;
+      }
+    }
+
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(planName)}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoLink, "_blank");
+  }
 });
 </script>
+
