@@ -261,3 +261,25 @@ footer {
   margin-top: 1rem;
   font-weight: bold;
 }
+.user-status {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.user-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+.logout-btn {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 12px;
+  border-radius: 4px;
+}

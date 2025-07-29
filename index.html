@@ -21,6 +21,11 @@
     <p data-aos="fade-up" data-aos-delay="1200" data-aos-duration="1600" data-aos-easing="ease-in-out">AI-generated workout plans tailored to your goals. Daily gym routines that evolve with your progress.</p>
     <a href="#" class="cta" data-aos="fade-up" data-aos-delay="1400" data-aos-duration="1400" data-aos-easing="ease-in-out">Try it Free</a>
   </header>
+  <div class="user-status" id="userStatus" style="display: none;">
+  <img src="user-icon.svg" alt="User Icon" class="user-icon" />
+  <span id="loggedInEmail" class="logged-in-email"></span>
+  <button id="logoutBtn" class="logout-btn">Logout</button>
+</div>
 
   <section class="how-it-works" data-aos="fade-up" data-aos-duration="1500" data-aos-easing="ease-in-out">
     <h2 data-aos="fade-up-right" data-aos-delay="100" data-aos-duration="1500" data-aos-easing="ease-in-out">How It Works</h2>
@@ -119,6 +124,31 @@
 
   <p id="authMessage" class="message"></p>
 </section>
+<div id="userStatus" class="user-status" style="display: none;">
+  <span id="loggedInEmail"></span>
+  <button id="logoutBtn" class="logout-button">Logout</button>
+</div>
+<script>
+  function updateUserStatus() {
+    const email = localStorage.getItem("userEmail");
+    const userStatus = document.getElementById("userStatus");
+    const emailDisplay = document.getElementById("loggedInEmail");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    if (email) {
+      userStatus.style.display = "flex";
+      emailDisplay.textContent = `Logged in as ${email}`;
+
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("userEmail");
+        localStorage.removeItem("userPassword");
+        location.reload();
+      });
+    }
+  }
+
+  updateUserStatus(); // run on page load
+</script>
 
   <footer>
     <p>&copy; 2025 Think-Gym. All rights reserved.</p>
