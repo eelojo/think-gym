@@ -303,3 +303,33 @@ footer {
   border-radius: 5px;
   cursor: pointer;
 }
+.icon-user {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  vertical-align: middle;
+  color: #333;
+}
+#loggedInEmail {
+  vertical-align: middle;
+  font-weight: 500;
+  color: #222;
+}
+#userStatus {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem;
+}
+.logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.logout-button:hover {
+  background-color: #e04343;
+}
