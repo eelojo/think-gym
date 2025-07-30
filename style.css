@@ -333,3 +333,33 @@ footer {
 .logout-button:hover {
   background-color: #e04343;
 }
+.icon-user {
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  color: #444;
+  flex-shrink: 0;
+}
+#userStatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1rem;
+  margin-top: 20px;
+}
+#loggedInEmail {
+  font-weight: 500;
+  color: #222;
+}
+.logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.logout-button:hover {
+  background-color: #e04343;
+}
