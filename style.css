@@ -322,22 +322,17 @@ gout-button {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #f2f2f2;
-  padding: 10px 16px;
+  padding: 10px 14px;
+  background: #f8f8f8;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+  max-width: fit-content;
+  margin: 20px auto;
+  font-size: 0.95rem;
 }
 .icon-user {
   width: 36px;
   height: 36px;
-  stroke: none;
   fill: #333;
-  vertical-align: middle;
   flex-shrink: 0;
 }
-
-
