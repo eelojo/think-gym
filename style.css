@@ -335,4 +335,10 @@ gout-button {
   height: 36px;
   fill: #333;
   flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  box-sizing: content-box;
+  transform: translateY(1px); /* fine-tune vertical centering */
 }
